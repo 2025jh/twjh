@@ -333,7 +333,7 @@ const firebaseConfig = {
             // 檢查是否有附加圖片或照片
             const mediaElements = postCard.querySelectorAll('img, video');
             if (mediaElements.length > 0) {
-                // 如果有附加媒體，直接下載所有媒體
+                // 果有附加媒體，直接下載所有媒體
                 mediaElements.forEach(async (mediaElement, index) => {
                     const mediaUrl = mediaElement.src;
                     const response = await fetch(mediaUrl);
@@ -364,13 +364,14 @@ const firebaseConfig = {
             ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
             
             // 設置文字樣式
-            ctx.font = 'bold 28px "可畫甜心體", Arial, "Noto Sans TC", sans-serif';
+            ctx.font = 'bold 28px Arial, "Noto Sans TC", sans-serif';
             ctx.fillStyle = '#000000';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             
-            // 獲取匿名內容
+            // 獲取匿名內容和時間
             const content = postCard.querySelector('.post-content').textContent;
+            const postTime = postCard.querySelector('.post-time').textContent.replace('🕒 ', '');
             
             // 取得目前的編號
             const currentNumber = await getCurrentPostNumber();
@@ -392,7 +393,7 @@ const firebaseConfig = {
             } else if (content.length < 50) {
                 fontSize = 36;
             }
-            ctx.font = `bold ${fontSize}px "可畫甜心體", Arial, "Noto Sans TC", sans-serif`;
+            ctx.font = `bold ${fontSize}px Arial, "Noto Sans TC", sans-serif`;
             
             // 逐字檢查並換行
             for (let i = 0; i < words.length; i++) {
@@ -426,6 +427,12 @@ const firebaseConfig = {
                 ctx.fillText(line, x, currentY);
             });
 
+            // 繪製時間 - 改為右下角
+            ctx.font = 'bold 20px Arial, "Noto Sans TC", sans-serif';
+            ctx.fillStyle = '#000000';
+            ctx.textAlign = 'right';
+            ctx.fillText(postTime, canvas.width - 20, canvas.height - 20);
+            
             // 將 canvas 轉換為圖片並下載
             canvas.toBlob(blob => {
                 const url = window.URL.createObjectURL(blob);
