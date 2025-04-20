@@ -1,57 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>匿名投稿</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      background: #f8f9fa;
-    }
-    h1 {
-      text-align: center;
-    }
-    .tags {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    .tag {
-      margin: 5px;
-      padding: 10px 20px;
-      border: none;
-      background: #ddd;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .tag.selected {
-      background: #4CAF50;
-      color: white;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    textarea {
-      width: 90%;
-      max-width: 600px;
-      height: 150px;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button[type="submit"] {
-      padding: 10px 30px;
-      background: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="index.css" />
 </head>
 <body>
   <h1>匿名投稿</h1>
@@ -68,42 +21,6 @@
     <button type="submit">發送</button>
   </form>
 
-  <script>
-    const form = document.querySelector("form");
-    const textarea = document.querySelector("textarea");
-    const tagButtons = document.querySelectorAll(".tag");
-    let selectedTag = "其他";
-
-    tagButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        tagButtons.forEach(btn => btn.classList.remove("selected"));
-        button.classList.add("selected");
-        selectedTag = button.innerText;
-      });
-    });
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const content = textarea.value.trim();
-      if (!content) return alert("請輸入內容！");
-      
-      const url = "https://script.google.com/macros/s/AKfycby_U43ALKhugvoF8tuklSUd3mbH7eJHMJctxxV072RRAmfZj_jllIKSAYzzsxKL5H2L/exec";
-
-      try {
-        await fetch(url, {
-          method: "POST",
-          body: new URLSearchParams({
-            tag: selectedTag,
-            content: content
-          })
-        });
-        alert("投稿成功！");
-        textarea.value = "";
-      } catch (err) {
-        alert("提交失敗，請稍後再試！");
-        console.error(err);
-      }
-    });
-  </script>
+  <script src="index.js"></script>
 </body>
 </html>
