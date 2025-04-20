@@ -16,7 +16,7 @@ form.addEventListener("submit", async (e) => {
   const content = textarea.value.trim();
   if (!content) return alert("請輸入內容！");
 
-  const url = "你的 Apps Script 網址"; // ← 請貼你自己的 /exec 網址！
+  const url = "https://script.google.com/macros/s/AKfycby_U43ALKhugvoF8tuklSUd3mbH7eJHMJctxxV072RRAmfZj_jllIKSAYzzsxKL5H2L/exec"; // ← 請貼你自己的 /exec 網址！
 
   try {
     await fetch(url, {
